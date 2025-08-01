@@ -233,7 +233,7 @@ Usage:
 def accessToken = vars.get("ACCESS_TOKEN")
 def userId = vars.get("USER_ID")
 
-if (accessToken != null && !accessToken.equals("TOKEN_NOT_FOUND")) {
+if (accessToken != null &amp;&amp; !accessToken.equals("TOKEN_NOT_FOUND")) {
     props.put("GLOBAL_ACCESS_TOKEN", accessToken)
     log.info("✅ Access token set globally: " + accessToken.substring(0, Math.min(20, accessToken.length())) + "...")
 } else {
@@ -241,7 +241,7 @@ if (accessToken != null && !accessToken.equals("TOKEN_NOT_FOUND")) {
     throw new Exception("Authentication failed - no access token")
 }
 
-if (userId != null && !userId.equals("USER_ID_NOT_FOUND")) {
+if (userId != null &amp;&amp; !userId.equals("USER_ID_NOT_FOUND")) {
     props.put("GLOBAL_USER_ID", userId)
     log.info("✅ User ID set globally: " + userId)
 } else {
