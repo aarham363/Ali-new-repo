@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: univid
+      POSTGRES_PASSWORD: univid
+      POSTGRES_DB: univid
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  api:
+    build: ./services/api
+    environment:
+      PORT: 8080
+      DATABASE_URL: postgres://univid:univid@db:5432/univid
+      REDIS_URL: redis://redis:6379
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ./services/api:/app
+
+  ffmpeg:
+    image: jrottenberg/ffmpeg:6.1-alpine
+    command: ["-version"]
+
+volumes:
+  db_data:
+  redis_data:
